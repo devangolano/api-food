@@ -18,12 +18,12 @@ const foodController = {
   // Cria um novo item de comida
   createFood: async (req, res) => {
     try {
-      // Verifica se já existe um item com o mesmo id
-      const existingFood = await Food.findOne({ id: req.body.id });
+      // Verifica se já existe um item com o mesmo nome (ou outro campo único que você desejar)
+      const existingFood = await Food.findOne({ name: req.body.name });
       if (existingFood) {
         return res
           .status(400)
-          .json({ message: "Já existe um item com este ID" });
+          .json({ message: "Já existe um item com este nome" });
       }
 
       const food = new Food(req.body);

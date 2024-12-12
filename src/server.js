@@ -25,5 +25,5 @@ app.use("/api/food", require("./routes/foodRoutes"));
 
 // Inicia o servidor
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
+  console.log(`🚀 Servidor rodando em na porta: ${PORT}`);
 });
