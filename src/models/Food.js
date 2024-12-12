@@ -7,6 +7,7 @@ const foodSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, "Nome é obrigatório"],
+      unique: true, // Garante que o nome seja único
     },
     price: {
       type: Number,
@@ -41,3 +42,4 @@ const foodSchema = new mongoose.Schema(
 
 // Cria e exporta o modelo Food
 module.exports = mongoose.model("Food", foodSchema);
+

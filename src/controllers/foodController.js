@@ -18,21 +18,18 @@ const foodController = {
   // Cria um novo item de comida
   createFood: async (req, res) => {
     try {
-      // Verifica se já existe um item com o mesmo nome (ou outro campo único que você desejar)
-      const existingFood = await Food.findOne({ name: req.body.name });
-      if (existingFood) {
-        return res
-          .status(400)
-          .json({ message: "Já existe um item com este nome" });
-      }
-
       const food = new Food(req.body);
       const savedFood = await food.save();
       res.status(201).json(savedFood);
     } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Erro ao salvar comida", error: error.message });
+      // Trata o erro de duplicidade (MongoDB error code 11000)
+      if (error.code === 11000) {
+        res.status(400).json({ message: "Já existe um item com este nome" });
+      } else {
+        res
+          .status(500)
+          .json({ message: "Erro ao salvar comida", error: error.message });
+      }
     }
   },
 
